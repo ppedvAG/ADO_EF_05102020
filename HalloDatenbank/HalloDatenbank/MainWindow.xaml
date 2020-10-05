@@ -8,8 +8,12 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top" Margin="8">
-            <Button Click="Laden">Laden</Button>
+            <Label>Filter:</Label>
+            <TextBox Name="FilterTb" Width="120"/>
+            <Button Click="Load">Laden</Button>
+
             <Button Click="CountEmployees">Anzahl Mitarbeiter</Button>
+            <Button Click="MakeAllYounger">Alle jünger machen</Button>
         </WrapPanel>
         <TabControl>
             <TabItem Header="Text output">
