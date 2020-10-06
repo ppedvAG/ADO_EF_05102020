@@ -1,0 +1,40 @@
+﻿<Window x:Class="EfModelFirst.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EfModelFirst"
+        mc:Ignorable="d" FontSize="14" Language="de"
+        Title="MainWindow" Height="450" Width="600">
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top">
+            <Button Click="CreateDemoData">Demodaten erstellen</Button>
+            <Button Click="LoadAll">Laden</Button>
+            <Button>Neu</Button>
+            <Button Click="Save">Speichern</Button>
+            <Button>Löschen</Button>
+        </WrapPanel>
+        <DataGrid Name="myGrid" AutoGenerateColumns="False" MouseDoubleClick="ShowMitarbeiter">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Job" Binding="{Binding Job}"/>
+                <DataGridTextColumn Header="GebDatum" Binding="{Binding GebDatum}"/>
+                <DataGridTemplateColumn Header="Kunden" Visibility="Collapsed">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox BorderThickness="0" ItemsSource="{Binding Kunden}" DisplayMemberPath="Name"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Abteilungen"  >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox BorderThickness="0" ItemsSource="{Binding Abteilungen}" DisplayMemberPath="Bezeichnung"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

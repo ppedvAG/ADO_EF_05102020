@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="PersonSet" EntityType="Model1.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AbteilungSet" EntityType="Model1.Store.AbteilungSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet_Kunde" EntityType="Model1.Store.PersonSet_Kunde" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet_Mitarbeiter" EntityType="Model1.Store.PersonSet_Mitarbeiter" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AbteilungMitarbeiter" EntityType="Model1.Store.AbteilungMitarbeiter" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="KundeMitarbeiter" Association="Model1.Store.KundeMitarbeiter">
+      <End Role="Kunde" EntitySet="PersonSet_Kunde" />
+      <End Role="Mitarbeiter" EntitySet="PersonSet_Mitarbeiter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AbteilungMitarbeiter_Abteilung" Association="Model1.Store.FK_AbteilungMitarbeiter_Abteilung">
+      <End Role="Abteilung" EntitySet="AbteilungSet" />
+      <End Role="AbteilungMitarbeiter" EntitySet="AbteilungMitarbeiter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AbteilungMitarbeiter_Mitarbeiter" Association="Model1.Store.FK_AbteilungMitarbeiter_Mitarbeiter">
+      <End Role="Mitarbeiter" EntitySet="PersonSet_Mitarbeiter" />
+      <End Role="AbteilungMitarbeiter" EntitySet="AbteilungMitarbeiter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kunde_inherits_Person" Association="Model1.Store.FK_Kunde_inherits_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Kunde" EntitySet="PersonSet_Kunde" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mitarbeiter_inherits_Person" Association="Model1.Store.FK_Mitarbeiter_inherits_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Mitarbeiter" EntitySet="PersonSet_Mitarbeiter" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GebDatum" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AbteilungSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bezeichnung" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet_Kunde">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="KdNummer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Schuhgrößen_LinkerFuß" Type="int" Nullable="false" />
+    <Property Name="Schuhgrößen_RechterFuß" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Mitarbeiter_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet_Mitarbeiter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Job" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AbteilungMitarbeiter">
+    <Key>
+      <PropertyRef Name="Abteilungen_Id" />
+      <PropertyRef Name="Mitarbeiter_Id" />
+    </Key>
+    <Property Name="Abteilungen_Id" Type="int" Nullable="false" />
+    <Property Name="Mitarbeiter_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="KundeMitarbeiter">
+    <End Role="Kunde" Type="Model1.Store.PersonSet_Kunde" Multiplicity="*" />
+    <End Role="Mitarbeiter" Type="Model1.Store.PersonSet_Mitarbeiter" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Mitarbeiter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kunde">
+        <PropertyRef Name="Mitarbeiter_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AbteilungMitarbeiter_Abteilung">
+    <End Role="Abteilung" Type="Model1.Store.AbteilungSet" Multiplicity="1" />
+    <End Role="AbteilungMitarbeiter" Type="Model1.Store.AbteilungMitarbeiter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Abteilung">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AbteilungMitarbeiter">
+        <PropertyRef Name="Abteilungen_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AbteilungMitarbeiter_Mitarbeiter">
+    <End Role="AbteilungMitarbeiter" Type="Model1.Store.AbteilungMitarbeiter" Multiplicity="*" />
+    <End Role="Mitarbeiter" Type="Model1.Store.PersonSet_Mitarbeiter" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Mitarbeiter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AbteilungMitarbeiter">
+        <PropertyRef Name="Mitarbeiter_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kunde_inherits_Person">
+    <End Role="Person" Type="Model1.Store.PersonSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Kunde" Type="Model1.Store.PersonSet_Kunde" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kunde">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mitarbeiter_inherits_Person">
+    <End Role="Person" Type="Model1.Store.PersonSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Mitarbeiter" Type="Model1.Store.PersonSet_Mitarbeiter" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mitarbeiter">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonSet" EntityType="Model1.Person" />
+          <AssociationSet Name="KundeMitarbeiter" Association="Model1.KundeMitarbeiter">
+            <End Role="Kunde" EntitySet="PersonSet" />
+            <End Role="Mitarbeiter" EntitySet="PersonSet" />
+          </AssociationSet>
+          <EntitySet Name="AbteilungSet" EntityType="Model1.Abteilung" />
+          <AssociationSet Name="AbteilungMitarbeiter" Association="Model1.AbteilungMitarbeiter">
+            <End Role="Abteilung" EntitySet="AbteilungSet" />
+            <End Role="Mitarbeiter" EntitySet="PersonSet" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="GebDatum" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kunde" BaseType="Model1.Person" >
+          <Property Name="KdNummer" Type="String" Nullable="false" />
+          <Property Name="Schuhgrößen" Type="Model1.Schuhgröße" Nullable="false" />
+          <NavigationProperty Name="Mitarbeiter" Relationship="Model1.KundeMitarbeiter" FromRole="Kunde" ToRole="Mitarbeiter" />
+        </EntityType>
+        <EntityType Name="Mitarbeiter" BaseType="Model1.Person" >
+          <Property Name="Job" Type="String" Nullable="false" />
+          <NavigationProperty Name="Kunden" Relationship="Model1.KundeMitarbeiter" FromRole="Mitarbeiter" ToRole="Kunde" />
+          <NavigationProperty Name="Abteilungen" Relationship="Model1.AbteilungMitarbeiter" FromRole="Mitarbeiter" ToRole="Abteilung" />
+        </EntityType>
+        <ComplexType Name="Schuhgröße" >
+          <Property Type="Int32" Name="LinkerFuß" Nullable="false" />
+          <Property Type="Int32" Name="RechterFuß" Nullable="false" />
+        </ComplexType>
+        <Association Name="KundeMitarbeiter">
+          <End Type="Model1.Kunde" Role="Kunde" Multiplicity="*" />
+          <End Type="Model1.Mitarbeiter" Role="Mitarbeiter" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Abteilung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" Nullable="false" />
+          <NavigationProperty Name="Mitarbeiter" Relationship="Model1.AbteilungMitarbeiter" FromRole="Abteilung" ToRole="Mitarbeiter" />
+        </EntityType>
+        <Association Name="AbteilungMitarbeiter">
+          <End Type="Model1.Abteilung" Role="Abteilung" Multiplicity="*" />
+          <End Type="Model1.Mitarbeiter" Role="Mitarbeiter" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="GebDatum" ColumnName="GebDatum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Kunde)">
+        <MappingFragment StoreEntitySet="PersonSet_Kunde">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KdNummer" ColumnName="KdNummer" />
+          <ComplexProperty Name="Schuhgrößen" TypeName="Model1.Schuhgröße">
+            <ScalarProperty Name="LinkerFuß" ColumnName="Schuhgrößen_LinkerFuß" />
+            <ScalarProperty Name="RechterFuß" ColumnName="Schuhgrößen_RechterFuß" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Mitarbeiter)">
+        <MappingFragment StoreEntitySet="PersonSet_Mitarbeiter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Job" ColumnName="Job" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AbteilungSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Abteilung)">
+        <MappingFragment StoreEntitySet="AbteilungSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="KundeMitarbeiter" TypeName="Model1.KundeMitarbeiter" StoreEntitySet="PersonSet_Kunde">
+      <EndProperty Name="Mitarbeiter">
+        <ScalarProperty Name="Id" ColumnName="Mitarbeiter_Id" />
+      </EndProperty>
+      <EndProperty Name="Kunde">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AbteilungMitarbeiter" TypeName="Model1.AbteilungMitarbeiter" StoreEntitySet="AbteilungMitarbeiter">
+      <EndProperty Name="Abteilung">
+        <ScalarProperty Name="Id" ColumnName="Abteilungen_Id" />
+      </EndProperty>
+      <EndProperty Name="Mitarbeiter">
+        <ScalarProperty Name="Id" ColumnName="Mitarbeiter_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
