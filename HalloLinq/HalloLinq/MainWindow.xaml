@@ -1,0 +1,32 @@
+﻿<Window x:Class="HalloLinq.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HalloLinq"
+        mc:Ignorable="d" Language="de"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top">
+            <Button Click="ShowAll">Alle Anzeigen</Button>
+            <Button Click="FilterBirthDay">Alle die im aktuellen Monat GebTag haben</Button>
+            <Button Click="FilterBirthDayLAMBDA">Alle die im aktuellen Monat GebTag haben LAMBDA</Button>
+            <Button Click="CountThisMonthBirthDay">Anzahl Mitarbeiter die diese Monat GebTag haben</Button>
+            <Button Click="NextBirthDay">Der Mitarbeiter der als nächstes Gebtag hat</Button>
+            <Button Click="LinqSelect">Mitarbeiter SELECT</Button>
+            <Button Click="FillTree">Tree / Group by WochenTag</Button>
+        </WrapPanel>
+        <TreeView Name="tv1" DockPanel.Dock="Right" Width="200"/>
+        <DataGrid Name="myGrid">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Abteilungen">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox BorderThickness="0" ItemsSource="{Binding Abteilungen}" DisplayMemberPath="Bezeichnung"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
