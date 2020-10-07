@@ -1,8 +1,10 @@
 ﻿using EfCodeFirst.Data;
 using EfCodeFirst.Model;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 
 namespace EfCodeFirst
 {
@@ -14,8 +16,12 @@ namespace EfCodeFirst
         public MainWindow()
         {
             InitializeComponent();
+            //this.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(Properties.Settings.Default.Farbe.ToArgb()));
+            this.Title = Properties.Settings.Default.DerTitel;
         }
+        
         EfContext context = new EfContext();
+
         private void Load(object sender, RoutedEventArgs e)
         {
             myGrid.ItemsSource = context.Mitarbeiter.ToList();
@@ -23,8 +29,8 @@ namespace EfCodeFirst
 
         private void CreateDemoData(object sender, RoutedEventArgs e)
         {
-            var abt1 = new Abteilung() { Bezeichnung = "Steine" };
-            var abt2 = new Abteilung() { Bezeichnung = "Holz" };
+            //var abt1 = new Abteilung() { Bezeichnung = "Steine" };
+            //var abt2 = new Abteilung() { Bezeichnung = "Holz" };
 
             for (int i = 0; i < 100; i++)
             {
@@ -35,14 +41,19 @@ namespace EfCodeFirst
                     Job = "Macht dinge!!!"
                 };
 
-                if (i % 2 == 0)
-                    m.Abteilungen.Add(abt1);
-                if (i % 3 == 0)
-                    m.Abteilungen.Add(abt2);
+                //if (i % 2 == 0)
+                //    m.Abteilungen.Add(abt1);
+                //if (i % 3 == 0)
+                //    m.Abteilungen.Add(abt2);
 
                 context.Mitarbeiter.Add(m);
             }
 
+            context.SaveChanges();
+        }
+
+        private void Save(object sender, RoutedEventArgs e)
+        {
             context.SaveChanges();
         }
     }
