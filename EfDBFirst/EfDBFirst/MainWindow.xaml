@@ -1,0 +1,17 @@
+﻿<Window x:Class="EfDBFirst.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EfDBFirst"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top">
+            <Button Click="Load">Laden</Button>
+            <Button Click="Save">Speichern</Button>
+            <Button Click="GetTop10">Get Top 10</Button>
+        </WrapPanel>
+        <DataGrid Name="myGrid"/>
+    </DockPanel>
+</Window>
