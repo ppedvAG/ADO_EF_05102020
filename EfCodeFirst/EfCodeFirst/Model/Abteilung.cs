@@ -19,7 +19,7 @@ namespace EfCodeFirst.Model
         [EmailAddress]
         public string Email { get; set; }
 
-        public ICollection<Mitarbeiter> Mitarbeiter { get; set; } = new HashSet<Mitarbeiter>();
+        public virtual ICollection<Mitarbeiter> Mitarbeiter { get; set; } = new HashSet<Mitarbeiter>();
     }
 
 }

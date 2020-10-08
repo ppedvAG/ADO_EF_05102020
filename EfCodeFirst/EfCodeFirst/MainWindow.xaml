@@ -12,6 +12,27 @@
             <Button Click="Save">Speichern</Button>
             <Button Click="CreateDemoData">Demodaten</Button>
         </WrapPanel>
-        <DataGrid Name="myGrid"/>
+        <DataGrid Name="myGrid" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Job" Binding="{Binding Job}"/>
+                <DataGridTextColumn Header="GebDatum" Binding="{Binding GebDatum}"/>
+                <DataGridTemplateColumn Header="Kunden" Visibility="Collapsed">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox BorderThickness="0" ItemsSource="{Binding Kunden}" DisplayMemberPath="Name"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Abteilungen"  >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox BorderThickness="0" ItemsSource="{Binding Abteilungen}" DisplayMemberPath="Bezeichnung"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </DockPanel>
 </Window>

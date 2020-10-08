@@ -6,8 +6,8 @@
 
         public int Größe { get; set; }
         public int Zellennummer { get; set; }
-        public Mitarbeiter Ansprechpartner { get; set; }
-        public Mitarbeiter Verkäufer { get; set; }
+        public virtual Mitarbeiter Ansprechpartner { get; set; }
+        public virtual Mitarbeiter Verkäufer { get; set; }
     }
 
 }

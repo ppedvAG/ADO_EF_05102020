@@ -12,10 +12,10 @@ namespace EfCodeFirst.Model
 
         
 
-        public ICollection<Kunde> IstAnsprechpartner { get; set; } = new HashSet<Kunde>();
-        public ICollection<Kunde> IstVerkäufer { get; set; } = new HashSet<Kunde>();
+        public virtual ICollection<Kunde> IstAnsprechpartner { get; set; } = new HashSet<Kunde>();
+        public virtual ICollection<Kunde> IstVerkäufer { get; set; } = new HashSet<Kunde>();
 
-        //public ICollection<Abteilung> Abteilungen { get; set; } = new HashSet<Abteilung>();
+        public virtual ICollection<Abteilung> Abteilungen { get; set; } = new HashSet<Abteilung>();
 
     }
 

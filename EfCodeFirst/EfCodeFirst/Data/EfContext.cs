@@ -14,7 +14,7 @@ namespace EfCodeFirst.Data
     {
         public DbSet<Kunde> Kunden { get; set; }
         public DbSet<Mitarbeiter> Mitarbeiter { get; set; }
-        //public DbSet<Abteilung> Abteilungen { get; set; }
+        public DbSet<Abteilung> Abteilungen { get; set; }
         public DbSet<Person> Person { get; set; }
 
         public EfContext(string conString) : base(conString)
