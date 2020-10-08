@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Data.EF.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Logic", "ppedv.MessApp.Logic\ppedv.MessApp.Logic.csproj", "{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.UI.CoreConsole", "ppedv.MessApp.UI.CoreConsole\ppedv.MessApp.UI.CoreConsole.csproj", "{257B5A56-9BD1-437D-AD82-64BE744A827B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257B5A56-9BD1-437D-AD82-64BE744A827B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257B5A56-9BD1-437D-AD82-64BE744A827B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257B5A56-9BD1-437D-AD82-64BE744A827B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257B5A56-9BD1-437D-AD82-64BE744A827B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

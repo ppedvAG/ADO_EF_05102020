@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll" Link="EntityFramework.SqlServer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ppedv.MessApp.Data.EF\ppedv.MessApp.Data.EF.csproj" />
+    <ProjectReference Include="..\ppedv.MessApp.Logic\ppedv.MessApp.Logic.csproj" />
+    <ProjectReference Include="..\ppedv.MessApp.Model\ppedv.MessApp.Model.csproj" />
+  </ItemGroup>
+
+</Project>
