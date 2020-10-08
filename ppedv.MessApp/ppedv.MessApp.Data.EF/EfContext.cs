@@ -1,9 +1,8 @@
 ﻿using ppedv.MessApp.Model;
 using System;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 
 namespace ppedv.MessApp.Data.EF
 {
@@ -29,6 +28,26 @@ namespace ppedv.MessApp.Data.EF
 
             modelBuilder.Entity<Emitter>().HasOptional(x => x.Komponente).WithOptionalDependent(x => x.Emitter);
             modelBuilder.Entity<Detektor>().HasOptional(x => x.Komponente).WithOptionalDependent(x => x.Detektor);
+        }
+
+        public override int SaveChanges()
+        {
+            foreach (var item in ChangeTracker.Entries().Where(x => x.State == EntityState.Added))
+            {
+                if (item.Entity is Entity en)
+                {
+                    en.Created = DateTime.Now;
+                    en.Modified = DateTime.Now;
+                }
+            }
+
+            foreach (var item in ChangeTracker.Entries().Where(x => x.State == EntityState.Modified))
+            {
+                if (item.Entity is Entity en)
+                    en.Modified = DateTime.Now;
+            }
+
+            return base.SaveChanges();
         }
     }
 }

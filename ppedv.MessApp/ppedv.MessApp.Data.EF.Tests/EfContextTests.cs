@@ -1,4 +1,6 @@
 ﻿using System;
+using AutoFixture;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ppedv.MessApp.Model;
 
@@ -16,7 +18,8 @@ namespace ppedv.MessApp.Data.EF.Tests
 
             context.Database.Create();
 
-            Assert.IsTrue(context.Database.Exists());
+            //Assert.IsTrue(context.Database.Exists());
+            context.Database.Exists().Should().BeTrue();
         }
 
         [TestMethod]
@@ -85,8 +88,8 @@ namespace ppedv.MessApp.Data.EF.Tests
             {
                 var loaded = con.Detektoren.Find(d.Id);
 
-                //todo +/- 20ms
-                Assert.AreEqual(DateTime.Now, loaded.Created);
+                // +/- 2 sec
+                loaded.Created.Should().BeCloseTo(DateTime.Now, 2000);
             }
         }
 
@@ -110,9 +113,32 @@ namespace ppedv.MessApp.Data.EF.Tests
             using (var con = new EfContext())
             {
                 var loaded = con.Detektoren.Find(d.Id);
-                //todo +/- 20ms
-                Assert.AreEqual(DateTime.Now, loaded.Modified);
+                // +/- 2 sec
+                loaded.Modified.Should().BeCloseTo(DateTime.Now, 2000);
             }
+        }
+
+
+        [TestMethod]
+        public void EfContext_can_add_and_load_Messlauf_with_all_references()
+        {
+            var fix = new Fixture();
+            fix.Behaviors.Add(new OmitOnRecursionBehavior());
+
+            var ml = fix.Create<Messlauf>();
+
+            using (var con = new EfContext())
+            {
+                con.Messläufe.Add(ml);
+                con.SaveChanges();
+            }
+
+            using (var con = new EfContext())
+            {
+                var loaded = con.Messläufe.Find(ml.Id);
+                loaded.Should().BeEquivalentTo(ml, x => x.IgnoringCyclicReferences());
+            }
+
         }
     }
 }
