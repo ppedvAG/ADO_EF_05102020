@@ -9,16 +9,19 @@
     <None Include="..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll" Link="EntityFramework.SqlServer.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\ppedv.MessApp.Data.EF\bin\Debug\ppedv.MessApp.Data.EF.dll" Link="ppedv.MessApp.Data.EF.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ppedv.MessApp.Data.EF\ppedv.MessApp.Data.EF.csproj" />
     <ProjectReference Include="..\ppedv.MessApp.Logic\ppedv.MessApp.Logic.csproj" />
     <ProjectReference Include="..\ppedv.MessApp.Model\ppedv.MessApp.Model.csproj" />
   </ItemGroup>
