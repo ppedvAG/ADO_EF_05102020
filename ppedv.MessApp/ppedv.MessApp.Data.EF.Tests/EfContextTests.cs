@@ -64,9 +64,9 @@ namespace ppedv.MessApp.Data.EF.Tests
                 var loadedNow = con.Messläufe.Find(mlNow.Id);
                 var loadedMax = con.Messläufe.Find(mlMax.Id);
                 var loadedMin = con.Messläufe.Find(mlMin.Id);
-                Assert.AreEqual(mlNow, loadedNow.GestartetVon);
-                Assert.AreEqual(mlMax, loadedMax.GestartetVon);
-                Assert.AreEqual(mlMin, loadedMin.GestartetVon);
+                Assert.AreEqual(mlNow.Start, loadedNow.Start);
+                Assert.AreEqual(mlMax.Start, loadedMax.Start);
+                Assert.AreEqual(mlMin.Start, loadedMin.Start);
             }
         }
 

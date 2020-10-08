@@ -1,4 +1,6 @@
 ﻿using ppedv.MessApp.Model;
+using System;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Cryptography.X509Certificates;
@@ -23,6 +25,7 @@ namespace ppedv.MessApp.Data.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Properties<DateTime>().Configure(x => x.HasColumnType("datetime2"));
 
             modelBuilder.Entity<Emitter>().HasOptional(x => x.Komponente).WithOptionalDependent(x => x.Emitter);
             modelBuilder.Entity<Detektor>().HasOptional(x => x.Komponente).WithOptionalDependent(x => x.Detektor);
