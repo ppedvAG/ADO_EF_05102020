@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Model", "ppedv.MessApp.Model\ppedv.MessApp.Model.csproj", "{FAF14100-B5FE-4424-A4CE-797DC57DE5C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAF14100-B5FE-4424-A4CE-797DC57DE5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF14100-B5FE-4424-A4CE-797DC57DE5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF14100-B5FE-4424-A4CE-797DC57DE5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF14100-B5FE-4424-A4CE-797DC57DE5C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A7133BA-6D2E-44CF-8567-D80DEC4A8A78}
+	EndGlobalSection
+EndGlobal
