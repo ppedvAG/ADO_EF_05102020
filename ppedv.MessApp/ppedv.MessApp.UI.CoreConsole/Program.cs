@@ -22,6 +22,7 @@ namespace ppedv.MessApp.UI.CoreConsole
             var core = new Core(container.Resolve<IRepository>());
 
             Console.WriteLine($"Messungen heute: {core.CountMessungOfDay(DateTime.Now)}");
+            Console.WriteLine($"⫷⫸: {core.GetAverageMessResultOfDay(DateTime.Now)}");
 
             foreach (var ml in core.Repository.GetAll<Messlauf>())
             {

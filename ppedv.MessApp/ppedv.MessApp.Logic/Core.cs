@@ -2,7 +2,6 @@
 using ppedv.MessApp.Model.Contracts;
 using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace ppedv.MessApp.Logic
 {
@@ -18,6 +17,16 @@ namespace ppedv.MessApp.Logic
         public int CountMessungOfDay(DateTime day)
         {
             return Repository.GetAll<Messung>().Count(x => x.MessZeit.Date == day.Date);
+        }
+
+        public decimal? GetAverageMessResultOfDay(DateTime day)
+        {
+            var query = Repository.GetAll<Messlauf>().Where(x => x.Start.Date == day.Date)
+                                                     .SelectMany(x => x.Messungen);
+            if (query.Count() == 0)
+                return null;
+
+            return query.Average(x => x.Messwert);
         }
     }
 }
