@@ -17,17 +17,17 @@ namespace ppedv.MessApp.UI.CoreConsole
             var ass = Assembly.LoadFrom("ppedv.MessApp.Data.EF.dll");
             var builder = new ContainerBuilder();
             //builder.RegisterType<EfRepository>().As<IRepository>();
-            builder.RegisterAssemblyTypes(ass).Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(ass).Where(x => x.Name.EndsWith("UnitOfWork")).AsImplementedInterfaces();
             var container = builder.Build();
 
-            var core = new Core(container.Resolve<IRepository>());
+            var core = new Core(container.Resolve<IUnitOfWork>());
 
             Console.WriteLine($"Messungen heute: {core.CountMessungOfDay(DateTime.Now)}");
             Console.WriteLine($"Durchschnitt: {core.GetAverageMessResultOfDay(DateTime.Now)}");
 
-            Console.WriteLine($"Abzahl Messung: {core.Repository.Query<Messung>().Count()}");
+            Console.WriteLine($"Abzahl Messung: {core.UnitOfWork.GetRepo<Messung>().Query().Count()}");
 
-            foreach (var ml in core.Repository.Query<Messlauf>())
+            foreach (var ml in core.UnitOfWork.GetRepo<Messlauf>().Query())
             {
                 Console.WriteLine($"{ml.GestartetVon} {ml.Start} {ml.GemessenesGerät}");
             }
