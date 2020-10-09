@@ -4,16 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ppedv.MessApp.UI.WPF.Views"
+             xmlns:vm="clr-namespace:ppedv.MessApp.UI.WPF.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:MesslaeufeViewModel/>
+    </UserControl.DataContext>
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top">
             <Button>Neuer Messlauf</Button>
-            <Button>Speicher</Button>
+            <Button>Speichern</Button>
             <Button>Löschen</Button>
         </WrapPanel>
-        <DataGrid Width="300" DockPanel.Dock="Left"/>
-        <Grid>
+        <DataGrid ItemsSource="{Binding MesslaufListe}" 
+                  SelectedItem="{Binding SelectedMesslauf}"
+                  Width="400" 
+                  DockPanel.Dock="Left"/>
+        <Grid Margin="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
@@ -25,13 +32,41 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label>Start</Label>
-            <DatePicker Grid.Column="1"/>
+            <DatePicker SelectedDate="{Binding SelectedMesslauf.Start}" Grid.Column="1"/>
             <Label Grid.Row="1">Gestartet von</Label>
-            <TextBox Grid.Row="1" Grid.Column="2"/>
+            <TextBox Text="{Binding SelectedMesslauf.GestartetVon}" Grid.Row="1" Grid.Column="2"/>
             <Label Grid.Row="2">Getestetes Gerät</Label>
-            <TextBox Grid.Row="2" Grid.Column="2"/>
+            <TextBox Text="{Binding SelectedMesslauf.GemessenesGerät}" Grid.Row="2" Grid.Column="2"/>
             <GroupBox Header="Messungen" Grid.Row="3" Grid.ColumnSpan="2">
-                <ListBox />
+                <ListBox ItemsSource="{Binding SelectedMesslauf.Messungen}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label>Zeit</Label>
+                                <TextBlock Grid.Column="1" Text="{Binding MessZeit}"/>
+                                <Label Grid.Row="1">Parameter</Label>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Messparameter}"/>
+                                <Label Grid.Row="2">Wert</Label>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding MessWert}"/>
+                                <Label Grid.Row="3">Detektor</Label>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Komponente.Detektor.Name}"/>
+                                <Label Grid.Row="4">Emitter</Label>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Komponente.Emitter.Name}"/>
+                            </Grid>
+                       </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </GroupBox>
         </Grid>
     </DockPanel>

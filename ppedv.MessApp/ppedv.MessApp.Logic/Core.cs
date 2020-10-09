@@ -8,6 +8,7 @@ namespace ppedv.MessApp.Logic
     public class Core
     {
         public IUnitOfWork UnitOfWork { get; private set; }
+        
 
         public Core(IUnitOfWork uow)
         {
