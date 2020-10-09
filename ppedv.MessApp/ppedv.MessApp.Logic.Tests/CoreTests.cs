@@ -22,58 +22,64 @@ namespace ppedv.MessApp.Logic.Tests
             result.Should().Be(66);
         }
 
-        //[TestMethod]
-        //public void Core_GetAverageMessResultOfDay_2_Messläufe_with_2_Messung_results_66_moq()
-        //{
-        //    var mock = new Mock<IRepository>();
-        //    mock.Setup(x => x.Query<Messlauf>()).Returns(() =>
-        //    {
-        //        var ml1 = new Messlauf() { Start = DateTime.Now };
-        //        var ml2 = new Messlauf() { Start = DateTime.Now };
+        [TestMethod]
+        public void Core_GetAverageMessResultOfDay_2_Messläufe_with_2_Messung_results_66_moq()
+        {
+            var repoMock = new Mock<IRepository<Messlauf>>();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(x => x.GetRepo<Messlauf>()).Returns(repoMock.Object);
+            repoMock.Setup(x => x.Query()).Returns(() =>
+            {
+                var ml1 = new Messlauf() { Start = DateTime.Now };
+                var ml2 = new Messlauf() { Start = DateTime.Now };
 
-        //        ml1.Messungen.Add(new Messung() { Messwert = 33 });
-        //        ml1.Messungen.Add(new Messung() { Messwert = 99 });
+                ml1.Messungen.Add(new Messung() { Messwert = 33 });
+                ml1.Messungen.Add(new Messung() { Messwert = 99 });
 
-        //        ml2.Messungen.Add(new Messung() { Messwert = 33 });
-        //        ml2.Messungen.Add(new Messung() { Messwert = 99 });
+                ml2.Messungen.Add(new Messung() { Messwert = 33 });
+                ml2.Messungen.Add(new Messung() { Messwert = 99 });
 
-        //        return new[] { ml1, ml2 }.AsQueryable();
-        //    });
-        //    var core = new Core(mock.Object);
+                return new[] { ml1, ml2 }.AsQueryable();
+            });
+            var core = new Core(uowMock.Object);
 
-        //    var result = core.GetAverageMessResultOfDay(DateTime.Now);
+            var result = core.GetAverageMessResultOfDay(DateTime.Now);
 
-        //    result.Should().Be(66);
-        //}
+            result.Should().Be(66);
+        }
 
-        //[TestMethod]
-        //public void Core_GetAverageMessResultOfDay_2_Messläufe_with_0_Messung_results_null()
-        //{
-        //    var mock = new Mock<IRepository>();
-        //    mock.Setup(x => x.Query<Messlauf>()).Returns(() =>
-        //    {
-        //        var ml1 = new Messlauf() { Start = DateTime.Now };
-        //        var ml2 = new Messlauf() { Start = DateTime.Now };
+        [TestMethod]
+        public void Core_GetAverageMessResultOfDay_2_Messläufe_with_0_Messung_results_null()
+        {
+            var repoMock = new Mock<IRepository<Messlauf>>();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(x => x.GetRepo<Messlauf>()).Returns(repoMock.Object);
+            repoMock.Setup(x => x.Query()).Returns(() =>
+            {
+                var ml1 = new Messlauf() { Start = DateTime.Now };
+                var ml2 = new Messlauf() { Start = DateTime.Now };
 
-        //        return new[] { ml1, ml2 }.AsQueryable();
-        //    });
-        //    var core = new Core(mock.Object);
+                return new[] { ml1, ml2 }.AsQueryable();
+            });
+            var core = new Core(uowMock.Object);
 
-        //    var result = core.GetAverageMessResultOfDay(DateTime.Now);
+            var result = core.GetAverageMessResultOfDay(DateTime.Now);
 
-        //    result.Should().BeNull();
-        //}
+            result.Should().BeNull();
+        }
 
-        //[TestMethod]
-        //public void Core_GetAverageMessResultOfDay_0_Messläufe_results_null()
-        //{
-        //    var mock = new Mock<IRepository>();
-        //    var core = new Core(mock.Object);
+        [TestMethod]
+        public void Core_GetAverageMessResultOfDay_0_Messläufe_results_null()
+        {
+            var repoMock = new Mock<IRepository<Messlauf>>();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(x => x.GetRepo<Messlauf>()).Returns(repoMock.Object);
+            var core = new Core(uowMock.Object);
 
-        //    var result = core.GetAverageMessResultOfDay(DateTime.Now);
+            var result = core.GetAverageMessResultOfDay(DateTime.Now);
 
-        //    result.Should().BeNull();
-        //}
+            result.Should().BeNull();
+        }
     }
 
     public class TestUnitOfWork : IUnitOfWork
