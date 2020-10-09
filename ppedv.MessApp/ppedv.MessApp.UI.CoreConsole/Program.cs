@@ -3,6 +3,7 @@ using ppedv.MessApp.Logic;
 using ppedv.MessApp.Model;
 using ppedv.MessApp.Model.Contracts;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace ppedv.MessApp.UI.CoreConsole
@@ -18,13 +19,15 @@ namespace ppedv.MessApp.UI.CoreConsole
             //builder.RegisterType<EfRepository>().As<IRepository>();
             builder.RegisterAssemblyTypes(ass).Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces();
             var container = builder.Build();
-                        
+
             var core = new Core(container.Resolve<IRepository>());
 
             Console.WriteLine($"Messungen heute: {core.CountMessungOfDay(DateTime.Now)}");
-            Console.WriteLine($"⫷⫸: {core.GetAverageMessResultOfDay(DateTime.Now)}");
+            Console.WriteLine($"Durchschnitt: {core.GetAverageMessResultOfDay(DateTime.Now)}");
 
-            foreach (var ml in core.Repository.GetAll<Messlauf>())
+            Console.WriteLine($"Abzahl Messung: {core.Repository.Query<Messung>().Count()}");
+
+            foreach (var ml in core.Repository.Query<Messlauf>())
             {
                 Console.WriteLine($"{ml.GestartetVon} {ml.Start} {ml.GemessenesGerät}");
             }

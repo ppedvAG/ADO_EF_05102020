@@ -26,7 +26,7 @@ namespace ppedv.MessApp.Logic.Tests
         public void Core_GetAverageMessResultOfDay_2_Messläufe_with_2_Messung_results_66_moq()
         {
             var mock = new Mock<IRepository>();
-            mock.Setup(x => x.GetAll<Messlauf>()).Returns(() => 
+            mock.Setup(x => x.Query<Messlauf>()).Returns(() => 
             {
                 var ml1 = new Messlauf() { Start = DateTime.Now };
                 var ml2 = new Messlauf() { Start = DateTime.Now };
@@ -37,7 +37,7 @@ namespace ppedv.MessApp.Logic.Tests
                 ml2.Messungen.Add(new Messung() { Messwert = 33 });
                 ml2.Messungen.Add(new Messung() { Messwert = 99 });
 
-                return new[] { ml1, ml2 };
+                return new[] { ml1, ml2 }.AsQueryable();
             });
             var core = new Core(mock.Object);
 
@@ -50,12 +50,12 @@ namespace ppedv.MessApp.Logic.Tests
         public void Core_GetAverageMessResultOfDay_2_Messläufe_with_0_Messung_results_null()
         {
             var mock = new Mock<IRepository>();
-            mock.Setup(x => x.GetAll<Messlauf>()).Returns(() =>
+            mock.Setup(x => x.Query<Messlauf>()).Returns(() =>
             {
                 var ml1 = new Messlauf() { Start = DateTime.Now };
                 var ml2 = new Messlauf() { Start = DateTime.Now };
 
-                return new[] { ml1, ml2 };
+                return new[] { ml1, ml2 }.AsQueryable();
             });
             var core = new Core(mock.Object);
 
@@ -88,7 +88,7 @@ namespace ppedv.MessApp.Logic.Tests
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll<T>() where T : Entity
+        public IQueryable<T> Query<T>() where T : Entity
         {
             if (typeof(T) == typeof(Messlauf))
             {
@@ -101,7 +101,7 @@ namespace ppedv.MessApp.Logic.Tests
                 ml2.Messungen.Add(new Messung() { Messwert = 33 });
                 ml2.Messungen.Add(new Messung() { Messwert = 99 });
 
-                return new[] { ml1, ml2 }.Cast<T>();
+                return new[] { ml1, ml2 }.Cast<T>().AsQueryable();
             }
 
             throw new NotImplementedException();

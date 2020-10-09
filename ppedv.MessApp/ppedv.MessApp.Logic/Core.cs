@@ -16,12 +16,12 @@ namespace ppedv.MessApp.Logic
 
         public int CountMessungOfDay(DateTime day)
         {
-            return Repository.GetAll<Messung>().Count(x => x.MessZeit.Date == day.Date);
+            return Repository.Query<Messung>().Count(x => x.MessZeit.Year == day.Year && x.MessZeit.Month == day.Month && x.MessZeit.Day == day.Day);
         }
 
         public decimal? GetAverageMessResultOfDay(DateTime day)
         {
-            var query = Repository.GetAll<Messlauf>().Where(x => x.Start.Date == day.Date)
+            var query = Repository.Query<Messlauf>().Where(x => x.Start.Year == day.Year && x.Start.Month == day.Month && x.Start.Day == day.Day)
                                                      .SelectMany(x => x.Messungen);
             if (query.Count() == 0)
                 return null;
