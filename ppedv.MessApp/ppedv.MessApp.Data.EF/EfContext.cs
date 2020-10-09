@@ -1,7 +1,10 @@
 ﻿using ppedv.MessApp.Model;
+using ppedv.MessApp.Model.Exceptions;
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ppedv.MessApp.Data.EF
@@ -28,6 +31,9 @@ namespace ppedv.MessApp.Data.EF
 
             modelBuilder.Entity<Emitter>().HasOptional(x => x.Komponente).WithOptionalDependent(x => x.Emitter);
             modelBuilder.Entity<Detektor>().HasOptional(x => x.Komponente).WithOptionalDependent(x => x.Detektor);
+
+            modelBuilder.Entity<Messlauf>().Property(x => x.Modified).IsConcurrencyToken(true);
+
         }
 
         public override int SaveChanges()
@@ -47,7 +53,38 @@ namespace ppedv.MessApp.Data.EF
                     en.Modified = DateTime.Now;
             }
 
-            return base.SaveChanges();
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                var dbparaEx = new DbParalellExcpetion();
+
+                dbparaEx.DatabaseWins = () =>
+                {
+                    foreach (var item in ex.Entries)
+                    {
+                        item.CurrentValues.SetValues(item.GetDatabaseValues());
+                    }
+
+                };
+
+                dbparaEx.UserWins = () =>
+                {
+                    foreach (var item in ex.Entries)
+                    {
+                        item.OriginalValues.SetValues(item.GetDatabaseValues());
+                    }
+                    SaveChanges();
+                };
+
+                throw dbparaEx;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

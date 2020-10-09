@@ -163,7 +163,7 @@
     </Content>
     <Content Include="..\ppedv.MessApp.Data.EF\bin\Debug\ppedv.MessApp.Data.EF.dll">
       <Link>ppedv.MessApp.Data.EF.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,9 @@
-﻿using Autofac;
+﻿using AdonisUI.Controls;
+using Autofac;
 using ppedv.MessApp.Logic;
 using ppedv.MessApp.Model;
 using ppedv.MessApp.Model.Contracts;
+using ppedv.MessApp.Model.Exceptions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,8 +37,9 @@ namespace ppedv.MessApp.UI.WPF.ViewModels
                 _core = core;
 
             MesslaufListe = new ObservableCollection<Messlauf>(_core.UnitOfWork.MesslaufRepository.Query().ToList());
-            SaveCommand = new RelayCommand(x => _core.UnitOfWork.SaveAll());
-            DeleteCommand = new RelayCommand(x => 
+            //SaveCommand = new RelayCommand(x => _core.UnitOfWork.SaveAll());
+            SaveCommand = new RelayCommand(x => SaveAll());
+            DeleteCommand = new RelayCommand(x =>
             {
                 if (SelectedMesslauf == null)
                     return;
@@ -44,6 +47,38 @@ namespace ppedv.MessApp.UI.WPF.ViewModels
                 MesslaufListe.Remove(SelectedMesslauf);
             });
             NewCommand = new RelayCommand(CreateNewMesslauf);
+        }
+
+        private void SaveAll()
+        {
+            try
+            {
+                _core.UnitOfWork.SaveAll();
+            }
+            catch (DbParalellExcpetion ex)
+            {
+                var dlg = AdonisUI.Controls.MessageBox.Show(ex.Message,
+                    "Db Parallelittätverletzung!!!\n [Ja] Ich will gewinnen\n[Nein] DB Gewinnt", AdonisUI.Controls.MessageBoxButton.YesNoCancel);
+
+                if (dlg == AdonisUI.Controls.MessageBoxResult.Yes)
+                {
+                    ex.UserWins();
+                    ReloadMesswerte();
+                }
+                else if (dlg == AdonisUI.Controls.MessageBoxResult.No)
+                    ex.DatabaseWins();
+
+            }
+            catch (Exception e)
+            {
+                AdonisUI.Controls.MessageBox.Show(e.Message);
+            }
+        }
+
+        private void ReloadMesswerte()
+        {
+            MesslaufListe.Clear();
+            _core.UnitOfWork.MesslaufRepository.Query().ToList().ForEach(x => MesslaufListe.Add(x));
         }
 
         private void CreateNewMesslauf(object obj)
