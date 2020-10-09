@@ -1,12 +1,17 @@
-﻿<Window x:Class="ppedv.MessApp.UI.WPF.MainWindow"
+﻿<controls:AdonisWindow x:Class="ppedv.MessApp.UI.WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ppedv.MessApp.UI.WPF"
         xmlns:views="clr-namespace:ppedv.MessApp.UI.WPF.Views"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:controls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="600">
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Datei">
@@ -22,7 +27,7 @@
                 <MenuItem Header="Einfügen"/>
             </MenuItem>
         </Menu>
-        <StatusBar DockPanel.Dock="Bottom" Height="22" Background="DarkTurquoise"/>
+        <StatusBar DockPanel.Dock="Bottom" Height="22" Background="{DynamicResource {x:Static adonisUi:Brushes.AccentBrush}}"/>
         <TabControl>
             <TabItem Header="Messläufe">
                 <views:MesslaeufeView/>
@@ -32,4 +37,4 @@
             </TabItem>
         </TabControl>
     </DockPanel>
-</Window>
+</controls:AdonisWindow>
