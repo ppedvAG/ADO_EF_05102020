@@ -7,21 +7,21 @@ namespace ppedv.MessApp.Logic
 {
     public class Core
     {
-        public IRepository Repository { get; private set; }
+        public IUnitOfWork UnitOfWork { get; private set; }
 
-        public Core(IRepository repo)
+        public Core(IUnitOfWork uow)
         {
-            Repository = repo;
+            UnitOfWork = uow;
         }
 
         public int CountMessungOfDay(DateTime day)
         {
-            return Repository.Query<Messung>().Count(x => x.MessZeit.Year == day.Year && x.MessZeit.Month == day.Month && x.MessZeit.Day == day.Day);
+            return UnitOfWork.GetRepo<Messung>().Query().Count(x => x.MessZeit.Year == day.Year && x.MessZeit.Month == day.Month && x.MessZeit.Day == day.Day);
         }
 
         public decimal? GetAverageMessResultOfDay(DateTime day)
         {
-            var query = Repository.Query<Messlauf>().Where(x => x.Start.Year == day.Year && x.Start.Month == day.Month && x.Start.Day == day.Day)
+            var query = UnitOfWork.GetRepo<Messlauf>().Query().Where(x => x.Start.Year == day.Year && x.Start.Month == day.Month && x.Start.Day == day.Day)
                                                      .SelectMany(x => x.Messungen);
             if (query.Count() == 0)
                 return null;
