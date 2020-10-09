@@ -25,11 +25,17 @@ namespace ppedv.MessApp.UI.CoreConsole
             Console.WriteLine($"Messungen heute: {core.CountMessungOfDay(DateTime.Now)}");
             Console.WriteLine($"Durchschnitt: {core.GetAverageMessResultOfDay(DateTime.Now)}");
 
-            Console.WriteLine($"Abzahl Messung: {core.UnitOfWork.GetRepo<Messung>().Query().Count()}");
+            Console.WriteLine($"Anzahl Messung: {core.UnitOfWork.GetRepo<Messung>().Query().Count()}");
 
             foreach (var ml in core.UnitOfWork.GetRepo<Messlauf>().Query())
             {
                 Console.WriteLine($"{ml.GestartetVon} {ml.Start} {ml.GemessenesGerät}");
+            }
+
+            Console.WriteLine("Messläufe geladen per Stored Procedure: ");
+            foreach (Messlauf messlauf in core.UnitOfWork.MesslaufRepository.GetMesslaufeByStoredProc())
+            {
+                Console.WriteLine($"per Stored Procedure: {messlauf.Start}");
             }
 
             Console.WriteLine("Ende");

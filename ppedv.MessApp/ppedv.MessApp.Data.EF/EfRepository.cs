@@ -12,6 +12,8 @@ namespace ppedv.MessApp.Data.EF
     {
         EfContext con = new EfContext();
 
+        public IMesslaufRepository MesslaufRepository => new EfMesslaufRepository(con);
+
         public IRepository<T> GetRepo<T>() where T : Entity
         {
             return new EfRepository<T>(con);
@@ -20,6 +22,18 @@ namespace ppedv.MessApp.Data.EF
         public int SaveAll()
         {
             return con.SaveChanges();
+        }
+    }
+
+    public class EfMesslaufRepository : EfRepository<Messlauf>, IMesslaufRepository
+    {
+        public EfMesslaufRepository(EfContext context) : base(context)
+        { }
+
+        public IEnumerable<Messlauf> GetMesslaufeByStoredProc()
+        {
+            var query = con.Database.SqlQuery<Messlauf>("SELECT * FROM Messlauf");
+            return query.ToList();
         }
     }
 

@@ -14,10 +14,17 @@ namespace ppedv.MessApp.Model.Contracts
         void Update(T entity);
     }
 
+    public interface IMesslaufRepository : IRepository<Messlauf>
+    {
+        IEnumerable<Messlauf> GetMesslaufeByStoredProc();
+    }
+
 
     public interface IUnitOfWork
     {
         IRepository<T> GetRepo<T>() where T : Entity;
+
+        IMesslaufRepository MesslaufRepository { get; }
 
         int SaveAll();
     }

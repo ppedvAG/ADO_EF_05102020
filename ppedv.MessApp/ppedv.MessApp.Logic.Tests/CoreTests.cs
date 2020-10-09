@@ -84,6 +84,8 @@ namespace ppedv.MessApp.Logic.Tests
 
     public class TestUnitOfWork : IUnitOfWork
     {
+        public IMesslaufRepository MesslaufRepository => throw new NotImplementedException();
+
         public IRepository<T> GetRepo<T>() where T : Entity
         {
             if (typeof(T) == typeof(Messlauf))
