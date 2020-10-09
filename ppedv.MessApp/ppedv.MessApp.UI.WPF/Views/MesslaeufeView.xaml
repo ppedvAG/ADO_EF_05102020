@@ -12,9 +12,9 @@
     </UserControl.DataContext>
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top">
-            <Button>Neuer Messlauf</Button>
-            <Button>Speichern</Button>
-            <Button>Löschen</Button>
+            <Button Command="{Binding NewCommand}" >Neuer Messlauf</Button>
+            <Button Command="{Binding SaveCommand}">Speichern</Button>
+            <Button Command="{Binding DeleteCommand}">Löschen</Button>
         </WrapPanel>
         <DataGrid ItemsSource="{Binding MesslaufListe}" 
                   SelectedItem="{Binding SelectedMesslauf}"
