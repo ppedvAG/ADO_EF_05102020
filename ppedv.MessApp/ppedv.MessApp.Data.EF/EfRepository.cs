@@ -8,40 +8,54 @@ using System.Threading.Tasks;
 
 namespace ppedv.MessApp.Data.EF
 {
-    public class EfRepository : IRepository
+    public class EfUnitOfWork : IUnitOfWork
     {
         EfContext con = new EfContext();
 
-        public void Add<T>(T entity) where T : Entity
+        public IRepository<T> GetRepo<T>() where T : Entity
         {
-            con.Set<T>().Add(entity);
-            //if (typeof(T) == typeof(Messlauf))
-            //    con.Messläufe.Add(entity);
-        }
-
-        public void Delete<T>(T entity) where T : Entity
-        {
-            con.Set<T>().Remove(entity);
-        }
-
-        public IQueryable<T> Query<T>() where T : Entity
-        {
-            return con.Set<T>();
-        }
-
-        public T GetById<T>(int id) where T : Entity
-        {
-            return con.Set<T>().Find(id);
+            return new EfRepository<T>(con);
         }
 
         public int SaveAll()
         {
             return con.SaveChanges();
         }
+    }
 
-        public void Update<T>(T entity) where T : Entity
+    public class EfRepository<T> : IRepository<T> where T : Entity
+    {
+        protected EfContext con;
+        public EfRepository(EfContext context)
         {
-            var loaded = GetById<T>(entity.Id);
+            con = context;
+        }
+
+        public void Add(T entity)
+        {
+            con.Set<T>().Add(entity);
+
+        }
+
+        public void Delete(T entity)
+        {
+            con.Set<T>().Remove(entity);
+
+        }
+
+        public T GetById(int id)
+        {
+            return con.Set<T>().Find(id);
+        }
+
+        public IQueryable<T> Query()
+        {
+            return con.Set<T>();
+        }
+
+        public void Update(T entity)
+        {
+            var loaded = GetById(entity.Id);
             if (loaded != null)
                 con.Entry(loaded).CurrentValues.SetValues(entity);
         }
