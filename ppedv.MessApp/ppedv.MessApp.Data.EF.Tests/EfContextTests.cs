@@ -12,7 +12,7 @@ namespace ppedv.MessApp.Data.EF.Tests
         [TestMethod]
         public void EfContext_can_create_database()
         {
-            var context = new EfContext();
+            var context = new EfContext("Server=(localdb)\\mssqllocaldb;Database=MessApp_CREATE_TEST;Trusted_Connection=true");
             if (context.Database.Exists())
                 context.Database.Delete();
 

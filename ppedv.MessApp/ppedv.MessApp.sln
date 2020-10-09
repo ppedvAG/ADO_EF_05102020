@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Data.EF", "pp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Data.EF.Tests", "ppedv.MessApp.Data.EF.Tests\ppedv.MessApp.Data.EF.Tests.csproj", "{EE6E5101-E7F5-4AC3-A2DF-B7A72E5570F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Logic", "ppedv.MessApp.Logic\ppedv.MessApp.Logic.csproj", "{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.MessApp.Logic", "ppedv.MessApp.Logic\ppedv.MessApp.Logic.csproj", "{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.UI.CoreConsole", "ppedv.MessApp.UI.CoreConsole\ppedv.MessApp.UI.CoreConsole.csproj", "{257B5A56-9BD1-437D-AD82-64BE744A827B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ppedv.MessApp.UI.CoreConsole", "ppedv.MessApp.UI.CoreConsole\ppedv.MessApp.UI.CoreConsole.csproj", "{257B5A56-9BD1-437D-AD82-64BE744A827B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1E14A644-1408-4C5A-AA92-20E90D83BA59}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{7F172A19-3EC8-4150-8244-12E66E1A04FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.Logic.Tests", "ppedv.MessApp.Logic.Tests\ppedv.MessApp.Logic.Tests.csproj", "{183C6AFA-8984-42C4-AA24-8E1A026470C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.MessApp.UI.WPF", "ppedv.MessApp.UI.WPF\ppedv.MessApp.UI.WPF.csproj", "{10DE7BDB-E4AD-4EA3-8BD9-7F6363AF8ECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{183C6AFA-8984-42C4-AA24-8E1A026470C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{183C6AFA-8984-42C4-AA24-8E1A026470C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{183C6AFA-8984-42C4-AA24-8E1A026470C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DE7BDB-E4AD-4EA3-8BD9-7F6363AF8ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DE7BDB-E4AD-4EA3-8BD9-7F6363AF8ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DE7BDB-E4AD-4EA3-8BD9-7F6363AF8ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DE7BDB-E4AD-4EA3-8BD9-7F6363AF8ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{A91D3D6A-5E7C-41FE-A6A2-4CE92A7D10B9} = {5C57904B-EC28-4F32-AD6F-3430252216D2}
 		{257B5A56-9BD1-437D-AD82-64BE744A827B} = {08786D0C-39DE-4F70-AF2F-D0865697E8A4}
 		{183C6AFA-8984-42C4-AA24-8E1A026470C5} = {5C57904B-EC28-4F32-AD6F-3430252216D2}
+		{10DE7BDB-E4AD-4EA3-8BD9-7F6363AF8ECF} = {08786D0C-39DE-4F70-AF2F-D0865697E8A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A7133BA-6D2E-44CF-8567-D80DEC4A8A78}
